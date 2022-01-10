@@ -1,0 +1,51 @@
+<?php
+use function Lightroom\Templates\Functions\{controller};
+use function Lightroom\Requests\Functions\{session, cookie, get};
+use function Lightroom\Common\Functions\csrf;
+?><div class="row">
+	<div class="col-12">
+	   <div class="portlet">
+		  <div class="portlet-header portlet-header-bordered">
+			 <h3 class="portlet-title">Mechanics</h3>
+		  </div>
+		  <div class="portlet-body">
+			 <p>Here is a complete list of AutoFixer Mechanics.</p>
+			 <hr>
+			 <table id="datatable-1" class="table table-bordered table-striped table-hover">
+				<thead>
+				   <tr>
+					  <th>ID</th>
+					  <th>Mechanic Name</th>
+					  <th>Mechanic Email</th>
+					  <th>Mechanic Phone</th>
+					  <th>Country State</th>
+					  <th>Pending Jobs</th>
+					  <th>Completed Jobs</th>
+					  <th>Ongoing Jobs</th>
+					  <th></th>
+				   </tr>
+				</thead>
+				<tbody>
+					<?php $results = Queries\General::getAllMechanics(); $index = 1;?>
+					<?php foreach ($results as $result) { ?>
+						<tr>
+							<td><?=$index?></td>
+							<td><?=ucwords($result->name)?></td>
+							<td><a href="mailto:<?=$result->email?>"><?=$result->email?></a></td>
+							<td><a href="tel:<?=$result->phone?>"><?=$result->phone?></a></td>
+							<td><?=$result->state->name?></td>
+							<td><?=$result->pending?></td>
+							<td><?=$result->completed?></td>
+							<td><?=$result->ongoing?></td>
+							<td>
+								<a href="<?=web_url("mechanics/edit/$result->mechanicid")?>" class="btn btn-label-primary">Manage</a>
+							</td>
+						</tr>
+						<?php $index++;?>
+					<?php } ?>
+				</tbody>
+			 </table>
+		  </div>
+	   </div>
+	</div>
+ </div>

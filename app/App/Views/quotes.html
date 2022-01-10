@@ -1,0 +1,54 @@
+<div class="row">
+	<div class="col-12">
+	   <div class="portlet">
+		  <div class="portlet-header portlet-header-bordered">
+			 <h3 class="portlet-title">Service Quotes</h3>
+		  </div>
+		  <div class="portlet-body">
+			 <p>Here is a complete list of service quotes raised from the main site.</p>
+			 <hr>
+			 <table id="datatable-1" class="table table-bordered table-striped table-hover">
+				<thead>
+				   <tr>
+					  <th>ID</th>
+					  <th>Client Name</th>
+					  <th>Client Email</th>
+					  <th>Client Phone</th>
+					  <th>Service Type</th>
+					  <th>Manufacturer</th>
+					  <th>Car Issue</th>
+					  <th>Date</th>
+					  <th></th>
+				   </tr>
+				</thead>
+				<tbody>
+					{$results = Queries\General::getAllQuotes(); $index = 1;}
+					@foreach ($results as $result)
+						<tr>
+							<td>{$index}</td>
+							<td>{ucwords($result->name)}</td>
+							<td><a href="mailto:{$result->email}">{$result->email}</a></td>
+							<td><a href="tel:{$result->phone}">{$result->phone}</a></td>
+							<td>{ucwords($result->serviceType)}</td>
+							<td>
+								<div class="avatar avatar-rounded avatar-lg" style="background-color: #fff;">
+									<div class="avatar-display">
+										<img src="{$result->manufacturer->logo}"/>
+									</div>
+								</div>
+								<span>{$result->manufacturer->name}</span>
+							</td>
+							<td>{substr($result->issue, 0, 50)} {strlen($result->issue) > 50 ? '...' : ''}</td>
+							<td>{$result->date}</td>
+							<td>
+								<a $href="quotes/view/$result->quoteid" class="btn btn-label-primary">View</a>
+							</td>
+						</tr>
+						{$index++;}
+					@endfor
+				</tbody>
+			 </table>
+		  </div>
+	   </div>
+	</div>
+ </div>

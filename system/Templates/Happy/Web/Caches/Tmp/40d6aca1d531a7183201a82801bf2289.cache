@@ -1,0 +1,143 @@
+<?php
+use function Lightroom\Templates\Functions\{controller};
+use function Lightroom\Requests\Functions\{session, cookie, get};
+use function Lightroom\Common\Functions\csrf;
+?>
+<div class="row">
+	<div class="col-md-12">
+	   <div class="portlet">
+		  <div class="portlet-header portlet-header-bordered">
+			 <h3 class="portlet-title">Customer Information</h3>
+		  </div>
+		  <div class="portlet-body">
+			 <p>This provides more information to the quote submitted</p>
+			 <div class="portlet">
+				<div class="portlet-body">
+				   <div class="rich-list rich-list-bordered">
+					<div class="rich-list-item">
+						 <div class="rich-list-prepend">
+							<div class="avatar">
+							   <div class="avatar-display"><i class="fa fa-user"></i></div>
+							</div>
+						 </div>
+						 <div class="rich-list-content">
+							<h4 class="rich-list-title">Fullname</h4>
+							<span class="rich-list-subtitle"><?=$data->name?></span>
+						 </div>
+					</div>
+
+					<div class="rich-list-item">
+						<div class="rich-list-prepend">
+						   <div class="avatar">
+							  <div class="avatar-display"><i class="fa fa-envelope"></i></div>
+						   </div>
+						</div>
+						<div class="rich-list-content">
+						   <h4 class="rich-list-title">Email</h4>
+						   <span class="rich-list-subtitle"><a href="mailto:<?=$data->email?>"><?=$data->email?></a></span>
+						</div>
+					</div>
+
+					<div class="rich-list-item">
+						<div class="rich-list-prepend">
+						   <div class="avatar">
+							  <div class="avatar-display"><i class="fa fa-phone"></i></div>
+						   </div>
+						</div>
+
+						<div class="rich-list-content">
+							<h4 class="rich-list-title">Telephone</h4>
+							<span class="rich-list-subtitle"><a href="tel:<?=$data->phone?>"><?=$data->phone?></a></span>
+						 </div>
+					</div>
+
+					<div class="rich-list-item">
+						<div class="rich-list-prepend">
+						   <div class="avatar">
+							  <div class="avatar-display"><i class="fa fa-map-pin"></i></div>
+						   </div>
+						</div>
+
+						<div class="rich-list-content">
+							<h4 class="rich-list-title">Location</h4>
+							<span class="rich-list-subtitle"><?=$data->location?></span>
+						 </div>
+					</div>
+
+
+				   </div>
+				</div>
+			 </div>
+		  </div>
+	   </div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-12">
+	   <div class="portlet">
+		  <div class="portlet-header portlet-header-bordered">
+			 <h3 class="portlet-title">Car Information</h3>
+		  </div>
+		  <div class="portlet-body">
+			 <p>Here is a complete list of service quotes raised from the main site.</p>
+			 <hr>
+			 <table id="datatable-1" class="table table-bordered table-striped table-hover">
+				<thead>
+				   <tr>
+					  <th>Service Type</th>
+					  <th>Car Model</th>
+					  <th>Car Year</th>
+					  <th>Mileage</th>
+					  <th>Manufacturer</th>
+				   </tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><?=ucwords($data->serviceType)?></td>
+						<td><?=$data->carModel?></td>
+						<td><?=$data->carYear?></td>
+						<td><?=$data->mileage?></td>
+						<td>
+							<div class="avatar avatar-rounded avatar-lg" style="background-color: #fff;">
+								<div class="avatar-display">
+									<img src="<?=$data->manufacturer->logo?>"/>
+								</div>
+							</div>
+							<span><?=$data->manufacturer->name?></span>
+						</td>
+					</tr>
+				</tbody>
+			 </table>
+		  </div>
+	   </div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-12">
+	   <div class="portlet">
+		  <div class="portlet-header portlet-header-bordered">
+			 <h3 class="portlet-title">Car Issue</h3>
+		  </div>
+		  
+		<div class="portlet">
+			<div class="portlet-body">
+				<p>This shows the issue submited on this date <?=date('F jS Y', strtotime($data->date))?>.</p>
+				<div class="timeline timeline-timed">
+					<div class="timeline-item">
+						<span class="timeline-time"><?=date('g:i a', strtotime($data->date))?></span>
+						<div class="timeline-pin"><i class="marker marker-circle text-primary"></i></div>
+						<div class="timeline-content">
+							<p class="mb-0"><?=$data->issue?></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+  
+	   </div>
+	</div>
+</div>
+
+<a href="<?=web_url("quotes")?>" class="btn btn-label-primary">Go Back</a>

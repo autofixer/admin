@@ -1,0 +1,37 @@
+<?php
+use function Lightroom\Templates\Functions\{controller};
+use function Lightroom\Requests\Functions\{session, cookie, get};
+use function Lightroom\Common\Functions\csrf;
+?><div class="row">
+	<div class="col-12">
+	   <div class="portlet">
+		  <div class="portlet-header portlet-header-bordered">
+			 <h3 class="portlet-title">Newsletter Subscribers</h3>
+		  </div>
+		  <div class="portlet-body">
+			 <p>Here is a complete list of newsletter subscribers on autofixer.</p>
+			 <hr>
+			 <table id="datatable-1" class="table table-bordered table-striped table-hover">
+				<thead>
+				   <tr>
+					  <th>ID</th>
+					  <th>Customer Email</th>
+					  <th>Date</th>
+				   </tr>
+				</thead>
+				<tbody>
+					<?php $subscribers = Queries\General::getAllSubscribers(); $index = 1;?>
+					<?php foreach ($subscribers as $subscriber) { ?>
+						<tr>
+							<td><?=$index?></td>
+							<td><a href="mailto:<?=$subscriber->email?>"><?=$subscriber->email?></a></td>
+							<td><?=$subscriber->date?></td>
+						</tr>
+						<?php $index++;?>
+					<?php } ?>
+				</tbody>
+			 </table>
+		  </div>
+	   </div>
+	</div>
+ </div>

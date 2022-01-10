@@ -1,0 +1,327 @@
+<?php
+use function Lightroom\Templates\Functions\{controller};
+use function Lightroom\Requests\Functions\{session, cookie, get};
+use function Lightroom\Common\Functions\csrf;
+?>
+<div class="row">
+	<div class="col-md-12">
+		
+		<?php if (alert()->has('service-assigned')) { $message = alert()->get('service-assigned'); ?>
+			<div class="alert alert-success">This service has been successfully assigned to a mechanic</div>
+		<?php } ?>
+
+		<?php if (alert()->has('service-updated')) { $message = alert()->get('service-updated'); ?>
+			<div class="alert alert-success"><?=$message?></div>
+		<?php } ?>
+
+	   <div class="portlet">
+		  <div class="portlet-header portlet-header-bordered">
+			 <h3 class="portlet-title">Customer Information</h3>
+		  </div>
+		  <div class="portlet-body">
+			 <p>This provides more information to the <b><?=$data->serviceType?></b> service submitted</p>
+			 <div class="portlet">
+				<div class="portlet-body">
+				   <div class="rich-list rich-list-bordered">
+					<div class="rich-list-item">
+						 <div class="rich-list-prepend">
+							<div class="avatar">
+							   <div class="avatar-display"><i class="fa fa-user"></i></div>
+							</div>
+						 </div>
+						 <div class="rich-list-content">
+							<h4 class="rich-list-title">Fullname</h4>
+							<span class="rich-list-subtitle"><?=$data->name?></span>
+						 </div>
+					</div>
+
+					<div class="rich-list-item">
+						<div class="rich-list-prepend">
+						   <div class="avatar">
+							  <div class="avatar-display"><i class="fa fa-envelope"></i></div>
+						   </div>
+						</div>
+						<div class="rich-list-content">
+						   <h4 class="rich-list-title">Email</h4>
+						   <span class="rich-list-subtitle"><a href="mailto:<?=$data->email?>"><?=$data->email?></a></span>
+						</div>
+					</div>
+
+					<div class="rich-list-item">
+						<div class="rich-list-prepend">
+						   <div class="avatar">
+							  <div class="avatar-display"><i class="fa fa-phone"></i></div>
+						   </div>
+						</div>
+
+						<div class="rich-list-content">
+							<h4 class="rich-list-title">Telephone</h4>
+							<span class="rich-list-subtitle"><a href="tel:<?=$data->phone?>"><?=$data->phone?></a></span>
+						 </div>
+					</div>
+
+					<div class="rich-list-item">
+						<div class="rich-list-prepend">
+						   <div class="avatar">
+							  <div class="avatar-display"><i class="fa fa-map-pin"></i></div>
+						   </div>
+						</div>
+
+						<div class="rich-list-content">
+							<h4 class="rich-list-title">Location</h4>
+							<span class="rich-list-subtitle"><?=$data->location?></span>
+						 </div>
+					</div>
+
+					<div class="rich-list-item">
+						<div class="rich-list-prepend">
+						   <div class="avatar">
+							  <div class="avatar-display"><i class="fa fa-address-book"></i></div>
+						   </div>
+						</div>
+
+						<div class="rich-list-content">
+							<h4 class="rich-list-title">Address</h4>
+							<span class="rich-list-subtitle"><?=$data->address ?? 'n/a'?></span>
+						 </div>
+					</div>
+
+				   </div>
+				</div>
+			 </div>
+		  </div>
+	   </div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-12">
+	   <div class="portlet">
+		  <div class="portlet-header portlet-header-bordered">
+			 <h3 class="portlet-title">Car Information</h3>
+		  </div>
+		  <div class="portlet-body">
+			 <p>Here shows more information on the car and the service progress</p>
+			 <hr>
+			 <table id="datatable-1" class="table table-bordered table-striped table-hover">
+				<thead>
+				   <tr>
+					  <th>Service Type</th>
+					  <th>Service Status</th>
+					  <th>Car Year</th>
+					  <th>Car Model</th>
+					  <th>Needing Mechanic</th>
+					  <?php if($data->needingMechanic == 'yes') { ?>
+					  <th>Date to Visit</th>
+					  <th>Time to Visit</th>
+					  <?php } ?>
+					  <th>Manufacturer</th>
+					  <th>Subscribe to a plan</th>
+					  <th>Mechanic Assigned</th>
+				   </tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><?=ucwords($data->serviceType)?></td>
+						<td>
+							<?php if($data->status->name == 'pending') { ?>
+								<span class="badge badge-warning">pending</span>
+							<?php } elseif ($data->status->name == 'completed') { ?>
+								<span class="badge badge-success">completed</span>
+							<?php } elseif ($data->status->name == 'processing') { ?>
+								<span class="badge badge-primary">processing</span>
+							<?php } else { ?>
+								<span class="badge badge-danger"><?=$data->status->name?></span>
+							<?php } ?>	
+						</td>
+						<td><?=$data->carYear?></td>
+						<td><?=is_string($data->carModel) ? $data->carModel : 'n/a'?></td>
+						<td><?=$data->needingMechanic?></td>
+						<?php if($data->needingMechanic == 'yes') { ?>
+						<td><?=$data->dateToVisit?></td>
+						<td><?=$data->timeToVisit?></td>
+						<?php } ?>
+						<td>
+							<div class="avatar avatar-rounded avatar-lg" style="background-color: #fff;">
+								<div class="avatar-display">
+									<img src="<?=$data->manufacturer->logo?>"/>
+								</div>
+							</div>
+							<span><?=$data->manufacturer->name?></span>
+						</td>
+						<td><?=$data->subscribeToAplan?></td>
+						<td><?=is_string($data->mechanic->name) ? $data->mechanic->name : "Not assigned"?></td>
+					</tr>
+				</tbody>
+			 </table>
+		  </div>
+	   </div>
+	</div>
+</div>
+
+<?php if($data->status->name == 'pending' or  $data->status->name == 'processing') { ?>
+
+<div class="row">
+	<div class="col-12">
+	   <div class="portlet">
+		  <div class="portlet-header portlet-header-bordered">
+			 <h3 class="portlet-title">Update Service</h3>
+		  </div>
+		  
+		<div class="portlet">
+			<div class="portlet-body">
+				<p>This allows for updating the service status and also assigning to a mechanic</p>
+				<?php if($data->status->name == 'pending') { ?>
+					<form action="" method="post">
+						<?=\Happy\Directives::runDirective(true,'csrf')?>
+						<?=\Happy\Directives::runDirective(true,'method','@assignService')?>
+						<input type="hidden" name="serviceid" value="<?=$data->serviceid?>"/>
+						
+						<div class="form-group">
+						<label for="exampleFormControlSelect1">Assign a Mechanic</label> 
+							<select class="form-control" name="mechanicid" id="exampleFormControlSelect1" required>
+								<?php $mechanics = Queries\General::getAllMechanics();?>
+								<option value="">Please Choose</option>
+								<?php foreach ($mechanics as $mechanic) { ?>
+									<?php if(is_string($data->mechanic->name) && $data->mechanic->mechanicid == $mechanic->mechanicid) { ?>
+										<option value="<?=$mechanic->mechanicid?>" selected><?=ucwords($mechanic->name)?> - (<?=$mechanic->state->name?>)</option>
+									<?php } else { ?> 
+										<option value="<?=$mechanic->mechanicid?>"><?=ucwords($mechanic->name)?> - (<?=$mechanic->state->name?>)</option>
+									<?php } ?>
+								<?php } ?>
+							</select>
+						</div>
+
+						<div class="form-group">
+							<label for="exampleFormControlInput1">Service Fee</label> 
+							<input type="number" name="service_fee" required class="form-control" id="exampleFormControlInput1" placeholder="Total charge for this service">
+						</div>
+
+						<button class="btn btn-primary" type="submit">Submit</button>
+
+					</form>
+
+				<?php } else { ?>  
+
+					<form action="" method="post">
+						<?=\Happy\Directives::runDirective(true,'csrf')?>
+						<?=\Happy\Directives::runDirective(true,'method','@updateService')?>
+						<input type="hidden" name="serviceid" value="<?=$data->serviceid?>"/>
+						
+						<div class="form-group">
+						<label for="exampleFormControlSelect1">Assigned Mechanic</label> 
+							<select class="form-control" name="mechanicid" id="exampleFormControlSelect1" required>
+								<?php $mechanics = Queries\General::getAllMechanics();?>
+								<option value="">Please Choose</option>
+								<?php foreach ($mechanics as $mechanic) { ?>
+									<?php if(is_string($data->mechanic->name) && $data->mechanic->mechanicid == $mechanic->mechanicid) { ?>
+										<option value="<?=$mechanic->mechanicid?>" selected><?=ucwords($mechanic->name)?> - (<?=$mechanic->state->name?>)</option>
+									<?php } else { ?> 
+										<option value="<?=$mechanic->mechanicid?>"><?=ucwords($mechanic->name)?> - (<?=$mechanic->state->name?>)</option>
+									<?php } ?>
+								<?php } ?>
+							</select>
+						</div>
+
+						<div class="form-group">
+							<label for="exampleFormControlInput1">Service Fee</label> 
+							<input type="number" name="service_fee" value="<?=$data->serviceFee?>" required class="form-control" id="exampleFormControlInput1" placeholder="Total charge for this service">
+						</div>
+
+						<div class="form-group">
+							<label for="exampleFormControlSelect2">Service Status</label> 
+								<select class="form-control" name="statusid" id="exampleFormControlSelect2" required>
+									<?php $statuses = Queries\General::getAllStatus();?>
+									<?php foreach ($statuses as $status) { ?>
+										<?php if($status->statusid == $data->status->statusid) { ?>
+											<option value="<?=$status->statusid?>" selected><?=ucwords($status->name)?></option>
+										<?php } elseif ($status->statusid != 1) { ?>
+											<option value="<?=$status->statusid?>"><?=ucwords($status->name)?></option>
+										<?php } ?>
+									<?php } ?>
+								</select>
+							</div>
+
+						<button class="btn btn-primary" type="submit">Submit</button>
+
+					</form>
+					
+				<?php } ?>
+			</div>
+		</div>
+  
+	   </div>
+	</div>
+</div>
+
+<?php } ?>
+
+<div class="row">
+	<div class="col-12">
+	   <div class="portlet">
+		  <div class="portlet-header portlet-header-bordered">
+			 <h3 class="portlet-title">Remark</h3>
+		  </div>
+		  
+		<div class="portlet">
+			<div class="portlet-body">
+				<p>This shows the issue submited on this date <?=date('F jS Y', strtotime($data->date))?>.</p>
+				<div class="timeline timeline-timed">
+					<div class="timeline-item">
+						<span class="timeline-time"><?=date('g:i a', strtotime($data->date))?></span>
+						<div class="timeline-pin"><i class="marker marker-circle text-primary"></i></div>
+						<div class="timeline-content">
+							<p class="mb-0"><?=$data->comment?></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+  
+	   </div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-12">
+	   <div class="portlet">
+		  <div class="portlet-header portlet-header-bordered">
+			 <h3 class="portlet-title">Mechanic Reports</h3>
+		  </div>
+		  
+		<div class="portlet">
+			<div class="portlet-body">
+				<p>This shows all reports submitted by mechanics assigned.</p>
+				
+				<table id="datatable-2" class="table table-bordered table-striped table-hover">
+					<thead>
+					   <tr>
+						  <th>ID</th>
+						  <th>Mechanic Name</th>
+						  <th>Report</th>
+						  <th>Date</th>
+					   </tr>
+					</thead>
+					<tbody>
+						<?php $results = Queries\General::getServiceReport($data->serviceid, $data->mechanic->mechanicid); $index = 1;?>
+						<?php foreach ($results as $result) { ?>
+							<tr>
+								<td><?=$index?></td>
+								<?php $id = $result->mechanic->mechanicid;?>
+								<td><a href="<?=web_url("mechanics/edit/$id")?>"><?=ucwords($result->mechanic->name)?></a></td>
+								<td><?=$result->report?></td>
+								<td><?=$result->date?></td>
+							</tr>
+							<?php $index++;?>
+						<?php } ?>
+					</tbody>
+				 </table>
+			</div>
+		</div>
+  
+	   </div>
+	</div>
+</div>
+
+<a href="javascript:history.back()" class="btn btn-label-primary" style="margin-bottom:20px">Go Back</a>
+<br/>

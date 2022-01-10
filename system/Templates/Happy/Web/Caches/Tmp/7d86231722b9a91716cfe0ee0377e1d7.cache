@@ -1,0 +1,43 @@
+<?php
+use function Lightroom\Templates\Functions\{controller};
+use function Lightroom\Requests\Functions\{session, cookie, get};
+use function Lightroom\Common\Functions\csrf;
+?><div class="row">
+	<div class="col-12">
+	   <div class="portlet">
+		  <div class="portlet-header portlet-header-bordered">
+			 <h3 class="portlet-title">Contact Messages</h3>
+		  </div>
+		  <div class="portlet-body">
+			 <p>Here is a complete list of contact messages sent from the main site.</p>
+			 <hr>
+			 <table id="datatable-1" class="table table-bordered table-striped table-hover">
+				<thead>
+				   <tr>
+					  <th>ID</th>
+					  <th>Client Name</th>
+					  <th>Client Email</th>
+					  <th>Client Phone</th>
+					  <th>Client Message</th>
+					  <th>Date</th>
+				   </tr>
+				</thead>
+				<tbody>
+					<?php $messages = Queries\General::getAllContactMessages(); $index = 1;?>
+					<?php foreach ($messages as $message) { ?>
+						<tr>
+							<td><?=$index?></td>
+							<td><?=ucwords($message->name)?></td>
+							<td><a href="mailto:<?=$message->email?>"><?=$message->email?></a></td>
+							<td><a href="tel:<?=$message->phone?>"><?=$message->phone?></a></td>
+							<td><?=$message->message?></td>
+							<td><?=$message->date?></td>
+						</tr>
+						<?php $index++;?>
+					<?php } ?>
+				</tbody>
+			 </table>
+		  </div>
+	   </div>
+	</div>
+ </div>

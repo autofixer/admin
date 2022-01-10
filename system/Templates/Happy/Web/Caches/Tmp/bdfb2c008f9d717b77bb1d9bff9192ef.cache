@@ -1,0 +1,241 @@
+<?php
+use function Lightroom\Templates\Functions\{controller};
+use function Lightroom\Requests\Functions\{session, cookie, get};
+use function Lightroom\Common\Functions\csrf;
+?><?php 
+ // PHP starts here 
+
+use function Lightroom\Database\Functions\{db};
+
+ // PHP ends here 
+ ?>
+
+<?php $statistics = Queries\General::getStatistics();?>
+
+<div class="row">
+	<div class="col-12">
+	   <div class="portlet">
+		  <div class="widget10 widget10-vertical-md">
+			 <div class="widget10-item">
+				<div class="widget10-content">
+				   <h2 class="widget10-title"><?=$statistics->subscribers?></h2>
+				   <span class="widget10-subtitle">Total subscribers</span>
+				</div>
+				<div class="widget10-addon">
+				   <div class="avatar avatar-label-info avatar-circle widget8-avatar m-0">
+					  <div class="avatar-display"><i class="fa fa-address-book"></i></div>
+				   </div>
+				</div>
+			 </div>
+			 <div class="widget10-item">
+				<div class="widget10-content">
+				   <h2 class="widget10-title"><?=$statistics->quotes?></h2>
+				   <span class="widget10-subtitle">Total quotes</span>
+				</div>
+				<div class="widget10-addon">
+				   <div class="avatar avatar-label-primary avatar-circle widget8-avatar m-0">
+					  <div class="avatar-display"><i class="fa fa-calendar"></i></div>
+				   </div>
+				</div>
+			 </div>
+			 <div class="widget10-item">
+				<div class="widget10-content">
+				   <h2 class="widget10-title"><?=$statistics->diagnosis?></h2>
+				   <span class="widget10-subtitle">Diagnosis requests</span>
+				</div>
+				<div class="widget10-addon">
+				   <div class="avatar avatar-label-success avatar-circle widget8-avatar m-0">
+					  <div class="avatar-display"><i class="fa fa-folder"></i></div>
+				   </div>
+				</div>
+			 </div>
+			 <div class="widget10-item">
+				<div class="widget10-content">
+				   <h2 class="widget10-title"><?=$statistics->repair?></h2>
+				   <span class="widget10-subtitle">Repair requests</span>
+				</div>
+				<div class="widget10-addon">
+				   <div class="avatar avatar-label-danger avatar-circle widget8-avatar m-0">
+					  <div class="avatar-display"><i class="fa fa-folder"></i></div>
+				   </div>
+				</div>
+			 </div>
+
+			 <div class="widget10-item">
+				<div class="widget10-content">
+				   <h2 class="widget10-title"><?=$statistics->maintenance?></h2>
+				   <span class="widget10-subtitle">Maintainance requests</span>
+				</div>
+				<div class="widget10-addon">
+				   <div class="avatar avatar-label-secondary avatar-circle widget8-avatar m-0">
+					  <div class="avatar-display"><i class="fa fa-folder"></i></div>
+				   </div>
+				</div>
+			 </div>
+		  </div>
+	   </div>
+	</div>
+</div>
+ 
+<div class="row">
+	<div class="col-xl-8">
+		
+
+<div class="portlet">
+	<div class="portlet-header portlet-header-bordered">
+	   <div class="portlet-icon"><i class="fa fa-inbox"></i></div>
+	   <h3 class="portlet-title">General Statistics</h3>
+	</div>
+	<div class="portlet-body">
+	   <div class="row">
+		  <div class="col-md-6 col-lg-5">
+			 <div class="d-flex justify-content-center" id="widget-chart-4" style="min-height: 231.517px;">
+				<div id="apexcharts95pq6gfh" class="apexcharts-canvas apexcharts95pq6gfh apexcharts-theme-light" style="width: 300px; height: 231.517px;">
+				   <svg id="SvgjsSvg2628" width="300" height="231.51666259765625" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" class="apexcharts-svg" xmlns:data="ApexChartsNS" transform="translate(0, 0)" style="background: transparent none repeat scroll 0% 0%;">
+					  <g id="SvgjsG2630" class="apexcharts-inner apexcharts-graphical" transform="translate(38, 0)">
+						 <defs id="SvgjsDefs2629">
+							<clipPath id="gridRectMask95pq6gfh">
+							   <rect id="SvgjsRect2632" width="232" height="250" x="-3" y="-1" rx="0" ry="0" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fff"></rect>
+							</clipPath>
+							<clipPath id="gridRectMarkerMask95pq6gfh">
+							   <rect id="SvgjsRect2633" width="230" height="252" x="-2" y="-2" rx="0" ry="0" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fff"></rect>
+							</clipPath>
+						 </defs>
+						 <g id="SvgjsG2634" class="apexcharts-pie">
+							<g id="SvgjsG2635" transform="translate(0, 0) scale(1)">
+							   <circle id="SvgjsCircle2636" r="67.75853658536586" cx="113" cy="113" fill="transparent"></circle>
+							   <g id="SvgjsG2637" class="apexcharts-slices">
+								  <g id="SvgjsG2638" class="apexcharts-series apexcharts-pie-series" seriesName="Margin" rel="1" data:realIndex="0">
+									 <path id="SvgjsPath2639" d="M 113 8.756097560975604 A 104.2439024390244 104.2439024390244 0 0 1 212.14184269867042 80.78686258637742 L 177.44219775413575 92.06146068114533 A 67.75853658536586 67.75853658536586 0 0 0 113 45.24146341463414 L 113 8.756097560975604 z" fill="rgba(33,150,243,1)" fill-opacity="1" stroke-opacity="1" stroke-linecap="butt" stroke-width="2" stroke-dasharray="0" class="apexcharts-pie-area apexcharts-donut-slice-0" index="0" j="0" data:angle="72" data:startAngle="0" data:strokeWidth="2" data:value="2000" data:pathOrig="M 113 8.756097560975604 A 104.2439024390244 104.2439024390244 0 0 1 212.14184269867042 80.78686258637742 L 177.44219775413575 92.06146068114533 A 67.75853658536586 67.75853658536586 0 0 0 113 45.24146341463414 L 113 8.756097560975604 z" stroke="#ffffff"></path>
+								  </g>
+								  <g id="SvgjsG2640" class="apexcharts-series apexcharts-pie-series" seriesName="Profit" rel="2" data:realIndex="1">
+									 <path id="SvgjsPath2641" d="M 212.14184269867042 80.78686258637742 A 104.2439024390244 104.2439024390244 0 1 1 51.72697150492608 28.66491136686524 L 73.17253147820195 58.182192388462404 A 67.75853658536586 67.75853658536586 0 1 0 177.44219775413575 92.06146068114533 L 212.14184269867042 80.78686258637742 z" fill="rgba(76,175,80,1)" fill-opacity="1" stroke-opacity="1" stroke-linecap="butt" stroke-width="2" stroke-dasharray="0" class="apexcharts-pie-area apexcharts-donut-slice-1" index="0" j="1" data:angle="252" data:startAngle="72" data:strokeWidth="2" data:value="7000" data:pathOrig="M 212.14184269867042 80.78686258637742 A 104.2439024390244 104.2439024390244 0 1 1 51.72697150492608 28.66491136686524 L 73.17253147820195 58.182192388462404 A 67.75853658536586 67.75853658536586 0 1 0 177.44219775413575 92.06146068114533 L 212.14184269867042 80.78686258637742 z" stroke="#ffffff"></path>
+								  </g>
+								  <g id="SvgjsG2642" class="apexcharts-series apexcharts-pie-series" seriesName="Lost" rel="3" data:realIndex="2">
+									 <path id="SvgjsPath2643" d="M 51.72697150492608 28.66491136686524 A 104.2439024390244 104.2439024390244 0 0 1 112.98180600686547 8.756099148701026 L 112.98817390446256 45.24146444665567 A 67.75853658536586 67.75853658536586 0 0 0 73.17253147820195 58.182192388462404 L 51.72697150492608 28.66491136686524 z" fill="rgba(244,67,54,1)" fill-opacity="1" stroke-opacity="1" stroke-linecap="butt" stroke-width="2" stroke-dasharray="0" class="apexcharts-pie-area apexcharts-donut-slice-2" index="0" j="2" data:angle="36" data:startAngle="324" data:strokeWidth="2" data:value="1000" data:pathOrig="M 51.72697150492608 28.66491136686524 A 104.2439024390244 104.2439024390244 0 0 1 112.98180600686547 8.756099148701026 L 112.98817390446256 45.24146444665567 A 67.75853658536586 67.75853658536586 0 0 0 73.17253147820195 58.182192388462404 L 51.72697150492608 28.66491136686524 z" stroke="#ffffff"></path>
+								  </g>
+							   </g>
+							</g>
+						 </g>
+						 <line id="SvgjsLine2644" x1="0" y1="0" x2="226" y2="0" stroke="#bdbdbd" stroke-dasharray="0" stroke-width="1" class="apexcharts-ycrosshairs"></line>
+						 <line id="SvgjsLine2645" x1="0" y1="0" x2="226" y2="0" stroke-dasharray="0" stroke-width="0" class="apexcharts-ycrosshairs-hidden"></line>
+					  </g>
+					  <g id="SvgjsG2631" class="apexcharts-annotations"></g>
+				   </svg>
+				   <div class="apexcharts-legend"></div>
+				   <div class="apexcharts-tooltip apexcharts-theme-dark" style="left: 291.642px; top: 94.2px;">
+					  <div class="apexcharts-tooltip-series-group apexcharts-active" style="order: 1; display: flex;">
+						 <span class="apexcharts-tooltip-marker" style="background-color: rgb(33, 150, 243);"></span>
+						 <div class="apexcharts-tooltip-text" style="font-family: inherit; font-size: 12px;">
+							<div class="apexcharts-tooltip-y-group"><span class="apexcharts-tooltip-text-y-label">Margin: </span><span class="apexcharts-tooltip-text-y-value">$2,000</span></div>
+							<div class="apexcharts-tooltip-goals-group"><span class="apexcharts-tooltip-text-goals-label"></span><span class="apexcharts-tooltip-text-goals-value"></span></div>
+							<div class="apexcharts-tooltip-z-group"><span class="apexcharts-tooltip-text-z-label"></span><span class="apexcharts-tooltip-text-z-value"></span></div>
+						 </div>
+					  </div>
+					  <div class="apexcharts-tooltip-series-group" style="order: 2; display: none;">
+						 <span class="apexcharts-tooltip-marker" style="background-color: rgb(33, 150, 243);"></span>
+						 <div class="apexcharts-tooltip-text" style="font-family: inherit; font-size: 12px;">
+							<div class="apexcharts-tooltip-y-group"><span class="apexcharts-tooltip-text-y-label">Margin: </span><span class="apexcharts-tooltip-text-y-value">$2,000</span></div>
+							<div class="apexcharts-tooltip-goals-group"><span class="apexcharts-tooltip-text-goals-label"></span><span class="apexcharts-tooltip-text-goals-value"></span></div>
+							<div class="apexcharts-tooltip-z-group"><span class="apexcharts-tooltip-text-z-label"></span><span class="apexcharts-tooltip-text-z-value"></span></div>
+						 </div>
+					  </div>
+					  <div class="apexcharts-tooltip-series-group" style="order: 3; display: none;">
+						 <span class="apexcharts-tooltip-marker" style="background-color: rgb(33, 150, 243);"></span>
+						 <div class="apexcharts-tooltip-text" style="font-family: inherit; font-size: 12px;">
+							<div class="apexcharts-tooltip-y-group"><span class="apexcharts-tooltip-text-y-label">Margin: </span><span class="apexcharts-tooltip-text-y-value">$2,000</span></div>
+							<div class="apexcharts-tooltip-goals-group"><span class="apexcharts-tooltip-text-goals-label"></span><span class="apexcharts-tooltip-text-goals-value"></span></div>
+							<div class="apexcharts-tooltip-z-group"><span class="apexcharts-tooltip-text-z-label"></span><span class="apexcharts-tooltip-text-z-value"></span></div>
+						 </div>
+					  </div>
+				   </div>
+				</div>
+			 </div>
+			 <!-- <div class="d-flex justify-content-around mt-4"><span class="text-muted"><i class="marker marker-pill text-primary"></i> 20% Margin </span><span class="text-muted"><i class="marker marker-pill text-success"></i> 70% Profit </span><span class="text-muted"><i class="marker marker-pill text-danger"></i> 10% Lost</span></div> -->
+			 <div class="resize-triggers">
+				<div class="expand-trigger">
+				   <div style="width: 274px; height: 287px;"></div>
+				</div>
+				<div class="contract-trigger"></div>
+			 </div>
+		  </div>
+		  <div class="col-md-6 col-lg-7">
+			 <table class="table">
+				<tbody>
+				   <tr>
+					  <td class="border-top-0">Today Subscribers</td>
+					  <td class="text-right border-top-0"><?=$statistics->today->subscribers?></td>
+				   </tr>
+				   <tr>
+					  <td>Today Quotes</td>
+					  <td class="text-right text-primary"><?=$statistics->today->quotes?></td>
+				   </tr>
+				   <tr>
+					  <td>Today Messages</td>
+					  <td class="text-right text-success"><?=$statistics->today->messages?></td>
+				   </tr>
+				   <tr>
+					  <td>Diagnosis Today</td>
+					  <td class="text-right text-danger"><?=$statistics->today->diagnosis?></td>
+				   </tr>
+				   <tr>
+					  <td>Repairs Today</td>
+					  <td class="text-right text-info"><?=$statistics->today->repair?></td>
+				   </tr>
+				   <tr>
+					  <td>Maintenance Today</td>
+					  <td class="text-right text-primary"><?=$statistics->today->maintenance?></td>
+				   </tr>
+				   <tr>
+					<td>Users Today</td>
+					<td class="text-right text-primary"><?=$statistics->today->users?></td>
+				 </tr>
+				</tbody>
+			 </table>
+		  </div>
+	   </div>
+	</div>
+ </div>
+ 
+ 
+	</div>
+	<div class="col-xl-4">
+
+
+<div class="portlet">
+	<div class="portlet-header portlet-header-bordered">
+	   <div class="portlet-icon"><i class="fa fa-user-tag"></i></div>
+	   <h3 class="portlet-title">Reports Submitted</h3>
+	</div>
+	<div class="portlet-body">
+	   <div class="rich-list rich-list-flush">
+		   <?php $reports = db(Queries\General::MECHANIC_REPORT)->get()->orderBy('reportid', 'desc')->limit(0, 10)->go();?>
+
+			<?php if($reports->rowCount() > 0) { ?>
+				<?php while ($row = $reports->fetch(FETCH_OBJ)) { ?>
+				<div class="rich-list-item flex-column align-items-stretch">
+					<div class="rich-list-item p-0">
+						<div class="rich-list-prepend">
+						<div class="avatar">
+							<div class="avatar-display"><img src="../assets/images/avatar/avatar-1.webp" alt="Avatar image"></div>
+						</div>
+						</div>
+						<?php $mechanic = Queries\General::getMechanicByID($row->mechanicid);?>
+						<div class="rich-list-content">
+						<h4 class="rich-list-title"><?=ucwords($mechanic->name)?></h4>
+						<span class="rich-list-subtitle"><?=$row->date_created?></span>
+						</div>
+						<?php $id = $row->serviceid;?>
+						<div class="rich-list-append"><a class="btn btn-label-primary" href="<?=web_url("services/view/$id")?>">View</a></div>
+					</div>
+					<p class="text-justify mb-0 mt-2"><?=$row->report?></p>
+				</div>
+				<?php } ?>
+		  <?php } ?>
+	   </div>
+	</div>
+ </div>
+ 
+ 
+	</div>
+</div>

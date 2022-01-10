@@ -1,0 +1,34 @@
+# The default app title
+title : 'AutoFixer Administrator'
+# Seo Keywords
+keywords : 'AutoFixer, AutoFixer admin'
+# Seo Description
+description : 'The administrative area for autofixer staffs'
+# Seo Author
+author : 'Ifeanyi Amadi, Amadiify'
+# Favicon
+icon : 'moorexa-icon.png'
+# Beautiful url
+beautiful_url_target : __app_request__
+# Router global configuration
+router :
+  # set default controller and view
+  default :
+    controller : 'app'
+    view : home
+# launcher configuration
+launcher :
+  # set the content types for each platforms
+  contentType :
+    api : 'application/json'
+    web : 'text/html'
+    cli : 'text/plain'
+# actions for model
+actions :
+  - add
+  - create
+  - edit
+  - delete
+  - show
+# javascript script type
+javascript_type : 'application/javascript'

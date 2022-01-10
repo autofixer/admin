@@ -1,0 +1,63 @@
+<?php
+use function Lightroom\Templates\Functions\{controller};
+use function Lightroom\Requests\Functions\{session, cookie, get};
+use function Lightroom\Common\Functions\csrf;
+?>
+<div class="row">
+	<div class="col-md-12">
+	   <div class="portlet">
+		  <div class="portlet-header portlet-header-bordered">
+			 <h3 class="portlet-title">All Services</h3>
+		  </div>
+		  <div class="portlet-body">
+			 <p>This provides a list of services we can result for </p>
+			 <div class="portlet">
+				<div class="portlet-body">
+				   <div class="rich-list rich-list-bordered rich-list-action">
+
+					<a class="rich-list-item" href="<?=web_url("services/diagnosis")?>">
+						 <div class="rich-list-prepend">
+							<div class="avatar">
+							   <div class="avatar-display"><i class="fa fa-link"></i></div>
+							</div>
+						 </div>
+						 <div class="rich-list-content">
+							<h4 class="rich-list-title">Diagnosis</h4>
+							<span class="rich-list-subtitle">Click here to see all diagnosis services raised today, this month, and this year</span>
+						 </div>
+						 <div class="rich-list-append"><i class="caret"></i></div>
+					</a>
+
+					<a class="rich-list-item" href="<?=web_url("services/repair")?>">
+						<div class="rich-list-prepend">
+						   <div class="avatar">
+							  <div class="avatar-display"><i class="fa fa-link"></i></div>
+						   </div>
+						</div>
+						<div class="rich-list-content">
+						   <h4 class="rich-list-title">Repair</h4>
+						   <span class="rich-list-subtitle">Click here to see all repair services raised today, this month, and this year</span>
+						</div>
+						<div class="rich-list-append"><i class="caret"></i></div>
+				   </a>
+
+				   <a class="rich-list-item" href="<?=web_url("services/maintenance")?>">
+						<div class="rich-list-prepend">
+						<div class="avatar">
+							<div class="avatar-display"><i class="fa fa-link"></i></div>
+						</div>
+						</div>
+						<div class="rich-list-content">
+						<h4 class="rich-list-title">Maintenance</h4>
+						<span class="rich-list-subtitle">Click here to see all maintenance services raised today, this month, and this year</span>
+						</div>
+						<div class="rich-list-append"><i class="caret"></i></div>
+			   		</a>
+
+				   </div>
+				</div>
+			 </div>
+		  </div>
+	   </div>
+	</div>
+</div>

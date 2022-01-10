@@ -1,0 +1,57 @@
+<div class="row">
+	<div class="col-12">
+	   <div class="portlet">
+		  <div class="portlet-header portlet-header-bordered">
+			 <h3 class="portlet-title">Add a Mechanic</h3>
+		  </div>
+		  <div class="portlet-body">
+			 <p>Here is a complete form to add a mechanic to the database</p>
+			 <hr>
+			 @alert('mechanic-added')
+				<div class="alert alert-success">{$message}</div>
+			 @endalert
+
+			 @alert('failed-to-add')
+				<div class="alert alert-danger">{$message}</div>
+			 @endalert
+
+			 <form action="" method="post">
+				@csrf;
+				@method('@addMechanic');
+
+				<div class="form-group">
+					<label for="exampleFormControlInput1">Mechanic Name</label> 
+					<input type="text" name="name" required class="form-control" value="@post('name');" id="exampleFormControlInput1" placeholder="eg. Adams Charles">
+				</div>
+
+				<div class="form-group">
+					<label for="exampleFormControlInput2">Mechanic Telphone</label> 
+					<input type="tel" name="phone" required class="form-control" value="@post('phone');" id="exampleFormControlInput2" placeholder="eg. 08011222900">
+				</div>
+
+				<div class="form-group">
+					<label for="exampleFormControlInput3">Mechanic Email</label> 
+					<input type="email" name="email" required class="form-control" value="@post('email');" id="exampleFormControlInput3" placeholder="eg. hello@example.com">
+				</div>
+
+				<div class="form-group">
+					<label for="exampleFormControlSelect1">Country State</label> 
+					<select class="form-control" name="stateid" id="exampleFormControlSelect1" required>
+						{$states = Queries\General::getAllStates();}
+						<option value="">Please Choose</option>
+						@foreach ($states as $state)
+							<option value="{$state->stateid}">{ucwords($state->name)}</option>
+						@endfor
+					</select>
+				</div>
+
+				<button class="btn btn-primary" type="submit">Submit</button>
+
+			</form>
+		  </div>
+	   </div>
+	</div>
+ </div>
+
+ <a $href="mechanics" class="btn btn-label-primary" style="margin-top:20px">Go Back</a>
+<br/>

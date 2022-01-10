@@ -1,0 +1,55 @@
+<?php
+use function Lightroom\Templates\Functions\{controller};
+use function Lightroom\Requests\Functions\{session, cookie, get};
+use function Lightroom\Common\Functions\csrf;
+?><div class="holder">
+	<div class="wrapper">
+	   <div class="content">
+		  <div class="container-fluid">
+			 <div class="row no-gutters align-items-center justify-content-center h-100">
+				<div class="col-sm-8 col-md-6 col-lg-4 col-xl-3">
+				   <div class="portlet">
+					  <div class="portlet-body">
+						 <div class="text-center mb-4">
+							<div class="avatar avatar-label-primary avatar-circle widget12">
+							   <div class="avatar-display"><i class="fa fa-user-alt"></i></div>
+							</div>
+						 </div>
+
+						 <?php if (alert()->has('invalid-username')) { $message = alert()->get('invalid-username'); ?>
+						 	<div class="alert alert-warning">Username does not exists.</div>
+						 <?php } ?>
+
+						 <?php if (alert()->has('incorrect-password')) { $message = alert()->get('incorrect-password'); ?>
+						 	<div class="alert alert-warning">Username or password does not exists.</div>
+						 <?php } ?>
+
+						 <?php if (alert()->has('logout-successful')) { $message = alert()->get('logout-successful'); ?>
+						 	<div class="alert alert-success">Session ended successfully. Come back again!</div>
+						 <?php } ?>
+
+						 <form id="login-form" name="login-form" action="<?=\Happy\Directives::runDirective(true,'link','login')?>" method="post">
+							 <?=\Happy\Directives::runDirective(true,'csrf')?>
+							<div class="form-group">
+							   <div class="float-label float-label-lg"><input class="form-control form-control-lg" type="email" id="email" name="email" placeholder="Please insert your email" value="<?=\Happy\Directives::runDirective(true,'post','email')?>"> <label for="email">Email</label></div>
+							</div>
+							<div class="form-group">
+							   <div class="float-label float-label-lg"><input class="form-control form-control-lg" type="password" id="password" name="password" placeholder="Please insert your password"> <label for="password">Password</label></div>
+							</div>
+							<div class="d-flex align-items-center justify-content-between mb-3">
+							   <div class="form-group mb-0">
+								  <div class="custom-control custom-control-lg custom-switch"><input type="checkbox" class="custom-control-input" id="remember" name="remember"> <label class="custom-control-label" for="remember">Remember me</label></div>
+							   </div>
+							</div>
+							<div class="d-flex align-items-center justify-content-between"><span>Not in the right place? <a href="https://autofixer.com.ng">Goback to Autofixer</a> </span>
+								<button type="submit" class="btn btn-label-primary btn-lg btn-widest" data-show-loader="login-form">Login</button>
+							</div>
+						 </form>
+					  </div>
+				   </div>
+				</div>
+			 </div>
+		  </div>
+	   </div>
+	</div>
+ </div>
